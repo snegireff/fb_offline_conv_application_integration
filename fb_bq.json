@@ -1,0 +1,299 @@
+{
+  "name": "projects/34759824299/locations/us-central1/integrations/test/versions/43b91f5b-f9b5-4d35-944f-9de7cbf8b143",
+  "updateTime": "2022-10-07T10:21:33.363Z",
+  "lockHolder": "snegir@gmail.com",
+  "createTime": "2022-10-06T14:05:35.991Z",
+  "lastModifierEmail": "snegir@gmail.com",
+  "triggerConfigs": [{
+    "label": "Schedule Trigger",
+    "startTasks": [{
+      "taskId": "9"
+    }],
+    "properties": {
+      "Timer Name": "test_Timer_1",
+      "Scheduled Time spec": "5 19 * * *"
+    },
+    "triggerType": "CRON",
+    "triggerNumber": "2",
+    "triggerId": "cron_trigger/test_Timer_1/5+19+*+*+*"
+  }],
+  "taskConfigs": [{
+    "task": "FieldMappingTask",
+    "taskId": "5",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \u0027@type\u0027: \u0027type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\u0027,\n  \u0027mappedFields\u0027: [{\n    \u0027inputField\u0027: {\n      \u0027fieldType\u0027: \u0027STRING_VALUE\u0027,\n      \u0027transformExpression\u0027: {\n        \u0027initialValue\u0027: {\n          \u0027literalValue\u0027: {\n            \u0027stringValue\u0027: \u0027data\\u003d\u0027\n          }\n        },\n        \u0027transformationFunctions\u0027: [{\n          \u0027functionType\u0027: {\n            \u0027stringFunction\u0027: {\n              \u0027functionName\u0027: \u0027CONCAT\u0027\n            }\n          },\n          \u0027parameters\u0027: [{\n            \u0027initialValue\u0027: {\n              \u0027referenceValue\u0027: \u0027$`Task_9_connectorOutputPayload`$\u0027\n            },\n            \u0027transformationFunctions\u0027: [{\n              \u0027functionType\u0027: {\n                \u0027jsonFunction\u0027: {\n                  \u0027functionName\u0027: \u0027TO_STRING\u0027\n                }\n              }\n            }]\n          }]\n        }]\n      }\n    },\n    \u0027outputField\u0027: {\n      \u0027referenceKey\u0027: \u0027$payload_final$\u0027,\n      \u0027fieldType\u0027: \u0027STRING_VALUE\u0027,\n      \u0027cardinality\u0027: \u0027OPTIONAL\u0027\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "3"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "configure payload"
+  }, {
+    "task": "GenericConnectorTask",
+    "taskId": "9",
+    "parameters": {
+      "listEntitiesSortByColumns": {
+        "key": "listEntitiesSortByColumns",
+        "value": {
+          "stringValue": "$`Task_9_listEntitiesSortByColumns`$"
+        }
+      },
+      "filterClause": {
+        "key": "filterClause",
+        "value": {
+          "stringValue": "$`Task_9_filterClause`$"
+        }
+      },
+      "listEntitiesPageToken": {
+        "key": "listEntitiesPageToken",
+        "value": {
+          "stringValue": "$`Task_9_listEntitiesPageToken`$"
+        }
+      },
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "fb_test"
+        }
+      },
+      "listEntitiesPageSize": {
+        "key": "listEntitiesPageSize",
+        "value": {
+          "stringValue": "$`Task_9_listEntitiesPageSize`$"
+        }
+      },
+      "listEntitiesNextPageToken": {
+        "key": "listEntitiesNextPageToken",
+        "value": {
+          "stringValue": "$`Task_9_listEntitiesNextPageToken`$"
+        }
+      },
+      "config": {
+        "key": "config",
+        "value": {
+          "jsonValue": "{\n  \u0027@type\u0027: \u0027type.googleapis.com/enterprise.crm.eventbus.proto.connectors.GenericConnectorTaskConfig\u0027,\n  \u0027connection\u0027: {\n    \u0027connectionName\u0027: \u0027projects/bearded-analytics/locations/us-central1/connections/fb\u0027,\n    \u0027serviceName\u0027: \u0027projects/n2ca32cd4e0983816-tp/locations/us-central1/namespaces/connectors/services/runtime\u0027,\n    \u0027connectorVersion\u0027: \u0027projects/bearded-analytics/locations/global/providers/gcp/connectors/bigquery/versions/1\u0027\n  },\n  \u0027operation\u0027: \u0027LIST_ENTITIES\u0027\n}"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_9_connectorOutputPayload`$"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "5"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "from bq"
+  }, {
+    "task": "GenericRestV2Task",
+    "taskId": "3",
+    "parameters": {
+      "throwError": {
+        "key": "throwError",
+        "value": {
+          "booleanValue": true
+        }
+      },
+      "responseBody": {
+        "key": "responseBody",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_3_responseBody`$"]
+          }
+        }
+      },
+      "disableSSLValidation": {
+        "key": "disableSSLValidation",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "httpParams": {
+        "key": "httpParams"
+      },
+      "responseHeader": {
+        "key": "responseHeader",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_3_responseHeader`$"]
+          }
+        }
+      },
+      "userAgent": {
+        "key": "userAgent",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "httpMethod": {
+        "key": "httpMethod",
+        "value": {
+          "stringValue": "POST"
+        }
+      },
+      "responseStatus": {
+        "key": "responseStatus",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_3_responseStatus`$"]
+          }
+        }
+      },
+      "url": {
+        "key": "url",
+        "value": {
+          "stringValue": "$fb_url$"
+        }
+      },
+      "urlFetchingService": {
+        "key": "urlFetchingService",
+        "value": {
+          "stringValue": "HARPOON"
+        }
+      },
+      "useSSL": {
+        "key": "useSSL",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "requestorId": {
+        "key": "requestorId",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "urlQueryStrings": {
+        "key": "urlQueryStrings",
+        "value": {
+          "jsonValue": "{\n  \u0027@type\u0027: \u0027type.googleapis.com/enterprise.crm.eventbus.proto.ParameterMap\u0027,\n  \u0027entries\u0027: [{\n    \u0027key\u0027: {\n      \u0027literalValue\u0027: {\n        \u0027stringValue\u0027: \u0027access_token\u0027\n      }\n    },\n    \u0027value\u0027: {\n      \u0027referenceKey\u0027: \u0027$token$\u0027\n    }\n  }]\n}"
+        }
+      },
+      "requestBody": {
+        "key": "requestBody",
+        "value": {
+          "stringValue": "$payload_final$"
+        }
+      },
+      "followRedirects": {
+        "key": "followRedirects",
+        "value": {
+          "booleanValue": true
+        }
+      },
+      "additionalHeaders": {
+        "key": "additionalHeaders"
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "facebook offline conv"
+  }],
+  "integrationParameters": [{
+    "key": "output",
+    "dataType": "JSON_VALUE",
+    "displayName": "output",
+    "inputOutputType": "OUT"
+  }, {
+    "key": "`Task_3_responseHeader`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_3_responseHeader`",
+    "isTransient": true,
+    "producer": "1_3"
+  }, {
+    "key": "`Task_3_responseStatus`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_3_responseStatus`",
+    "isTransient": true,
+    "producer": "1_3"
+  }, {
+    "key": "token",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": "123"
+    },
+    "displayName": "token"
+  }, {
+    "key": "payload_final",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "payload_final"
+  }, {
+    "key": "payload_json",
+    "dataType": "JSON_VALUE",
+    "displayName": "payload_json",
+    "inputOutputType": "OUT"
+  }, {
+    "key": "payload",
+    "dataType": "JSON_VALUE",
+    "defaultValue": {
+      "jsonValue": "[{\n  \u0027event_name\u0027: \u0027test\u0027,\n  \u0027event_time\u0027: 1.664966231E9,\n  \u0027user_data\u0027: {\n    \u0027fbp\u0027: \u0027fb.1.1558571054389.1098115397\u0027\n  },\n  \u0027event_source_url\u0027: \u0027https://beardsanalytics.com/\u0027,\n  \u0027action_source\u0027: \u0027website\u0027\n}]"
+    },
+    "displayName": "payload",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"action_source\": {\n        \"type\": \"string\"\n      },\n      \"event_name\": {\n        \"type\": \"string\"\n      },\n      \"user_data\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"fbp\": {\n            \"type\": \"string\"\n          }\n        }\n      },\n      \"event_time\": {\n        \"type\": \"number\"\n      },\n      \"event_source_url\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}"
+  }, {
+    "key": "fb_url",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": "https://graph.facebook.com/v15.0/111/events"
+    },
+    "displayName": "fb_url"
+  }, {
+    "key": "`Task_9_listEntitiesPageSize`",
+    "dataType": "INT_VALUE",
+    "displayName": "`Task_9_listEntitiesPageSize`",
+    "producer": "1_9"
+  }, {
+    "key": "`Task_9_listEntitiesPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_9_listEntitiesPageToken`",
+    "producer": "1_9"
+  }, {
+    "key": "`Task_9_listEntitiesSortByColumns`",
+    "dataType": "STRING_ARRAY",
+    "displayName": "`Task_9_listEntitiesSortByColumns`",
+    "producer": "1_9"
+  }, {
+    "key": "`Task_9_filterClause`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_9_filterClause`",
+    "producer": "1_9"
+  }, {
+    "key": "`Task_9_listEntitiesNextPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_9_listEntitiesNextPageToken`",
+    "isTransient": true,
+    "producer": "1_9"
+  }, {
+    "key": "`Task_9_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_9_connectorOutputPayload`",
+    "inputOutputType": "OUT",
+    "isTransient": true,
+    "producer": "1_9",
+    "jsonSchema": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"event_time\": {\n        \"type\": [\"number\", \"null\"],\n        \"readOnly\": false\n      },\n      \"event_name\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      },\n      \"user_data\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      },\n      \"event_source_url\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      },\n      \"action_source\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      }\n    }\n  }\n}"
+  }, {
+    "key": "response_fb_conv",
+    "dataType": "JSON_VALUE",
+    "displayName": "response_fb_conv",
+    "inputOutputType": "OUT"
+  }, {
+    "key": "`Task_3_responseBody`",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "`Task_3_responseBody`",
+    "inputOutputType": "OUT",
+    "isTransient": true,
+    "producer": "1_3"
+  }]
+}
